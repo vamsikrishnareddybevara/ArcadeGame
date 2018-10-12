@@ -1,5 +1,6 @@
 // Enemies our player must avoid
-var Enemy = function (x, y, speed) {
+class Enemy {
+    constructor (x, y, speed) {
 
     // The following variables are used to determine the x and y axis and speed of the enemy
     this.x = x;
@@ -8,11 +9,8 @@ var Enemy = function (x, y, speed) {
 
     // The image of the enemy of cockroach that is added to the playing field 
     this.sprite = 'images/enemy-bug.png';
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function (dt) {
+    }
+    update(dt) {
 
     // Multiplies the speed by the dt parameter on the x axis
     this.x += this.speed * dt;
@@ -31,35 +29,34 @@ Enemy.prototype.update = function (dt) {
         player.x = 202;
         player.y = 405;
     };
-};
-
-// Renders the enemy into the game
-Enemy.prototype.render = function () {
+    };
+    render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+    };
+
+}
+
 
 // Player class focusing on x and y axis
-var Player = function (x, y) {
+class Player {
+    constructor (x, y) {
 
     // Variables for the player to move along x and y axis 
     this.x = x;
     this.y = y;
 
     //The image of the player of horn-girl is added to the playing field 
-    this.player = 'images/char-horn-girl.png';
+    this.sprite = 'images/char-horn-girl.png';
+};
+    update(dt) {
+
+    };
+
+    render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.update = function (dt) {
-
-};
-
-// Renders the image of the user into the game
-Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.player), this.x, this.y);
-};
-
-// Allows the user to use the arrow keys to jump from tile to tile
-Player.prototype.handleInput = function (keyPress) {
+handleInput(keyPress) {
 
     // Enables user on left arrow key to move left on the x axis by 102
     // Also enables user not to go off the game tiles on the left side
@@ -93,13 +90,13 @@ Player.prototype.handleInput = function (keyPress) {
         }, 800);
     };
 };
-
+}
 
 // All enemies are placed in an array
-var allEnemies = [];
+let allEnemies = [];
 
 // Location of the 3 enemies on the y axis located on the stone road
-var enemyLocation = [63, 147, 230];
+let enemyLocation = [63, 147, 230];
 
 
 // For each enemy located on the y axis from 0 on the x axis move at a speed of 200 
@@ -110,12 +107,12 @@ enemyLocation.forEach(function (locationY) {
 });
 
 // The starting location of the player is located at x=200, y=405
-var player = new Player(202, 405);
+let player = new Player(202, 405);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. 
 document.addEventListener('keyup', function (e) {
-    var allowedKeys = {
+    let allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
